@@ -46,7 +46,7 @@ export default {
         ],
         lat:0,
         lng:0,
-        key: 'AIzaSyAYmeDC6kDfIIGJ0F0tBUHw0G2luPj5fs0',
+        key: 'AIzaSyD4URhpJZCaikNltDvrWDuOjcg9tc_oJ8s',
       }
 
     },
@@ -65,10 +65,10 @@ export default {
           console.log("Erro na localização" + error);
         }
       },
-      BuscarLocal(){
-        const URL = `https://mgoogleplace.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat},${this.lng}&type=${this.SeletorLocal}&radius${this.SeletorDistancia*1000}&key=${this.key}`;
+    async  BuscarLocal(){
+        const URL = `https://mgoogleplace.herokuapp.com/https://mgoogleplace.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat},${this.lng}&type=${this.SeletorLocal}&radius${this.SeletorDistancia*1000}&key=${this.key}`;
 
-        axios.get(URL).then((res=>{
+       await axios.get(URL).then((res=>{
           console.log(res.data);
         })).catch((err=>{
           console.log(err);
