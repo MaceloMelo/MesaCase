@@ -38,15 +38,6 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../components/Cadastro.vue"),
   },
-  {
-    path: "/userLocation",
-    name: "userLocation",
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ "../components/UserLocation.vue"),
-  },
 
 ];
 
