@@ -120,15 +120,15 @@ export default {
            return e.formatted_address
          });
          this.endercoUsuario = roots.slice(0,1).toString()
-        })
-      }).catch((err) => {
+        }).catch((err) => {
           console.log(err);
         });
+      })
     },
   async  ProcurarLocal() {
      await  axios
         .get(
-          "https://mgoogleplace.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
+          "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
             this.lat +
             "," +
             this.lng +
