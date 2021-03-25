@@ -13,12 +13,16 @@
                   variant="info"
                   ><b-icon icon="geo-alt"></b-icon
                 ></b-button>
+                <b-button
+                  @click.prevent="PegarLocalizacao2"
+                  type="text"
+                  variant="info"
+                  ><b-icon icon="geo-alt"></b-icon
+                ></b-button>
                 <b-button type="" @click.prevent="LimparLocal" variant=""
                   >Limpar</b-button>
                 <b-button type="" @click.prevent="ProcurarLocal" variant="success"
                   >Buscar</b-button>
-                <b-button type="" @click.prevent="ProcurarLocal2" variant="success"
-                  >Buscar2</b-button>
               </b-input-group-append>
             </b-input-group>
             <div class=" mt-3">
