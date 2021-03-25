@@ -13,12 +13,6 @@
                   variant="info"
                   ><b-icon icon="geo-alt"></b-icon
                 ></b-button>
-                <b-button
-                  @click.prevent="PegarLocalizacao2"
-                  type="text"
-                  variant="info"
-                  ><b-icon icon="geo-alt"></b-icon
-                ></b-button>
                 <b-button type="" @click.prevent="LimparLocal" variant=""
                   >Limpar</b-button>
                 <b-button type="" @click.prevent="ProcurarLocal" variant="success"
@@ -116,31 +110,20 @@ export default {
     };
   },
   methods: {
-   PegarLocalizacao() {
+  PegarLocalizacao() {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        axios.get("http://localhost:8080/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
+      axios.get("https://maps.googleapis.com/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
           this.endercoUsuario = res.data.results
           let roots = this.endercoUsuario.map((e)=>{
            return e.formatted_address
          });
          this.endercoUsuario = roots.slice(0,1).toString()
         })
-      });
-    },
-   PegarLocalizacao2() {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.lat = position.coords.latitude;
-        this.lng = position.coords.longitude;
-        axios.get("https://mgoogleplace.herokuapp.com/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
-          this.endercoUsuario = res.data.results
-          let roots = this.endercoUsuario.map((e)=>{
-           return e.formatted_address
-         });
-         this.endercoUsuario = roots.slice(0,1).toString()
-        })
-      });
+      }).catch((err) => {
+          console.log(err);
+        });
     },
     async ProcurarLocal() {
       await axios
