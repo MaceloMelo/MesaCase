@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.45ccf19899b6412eed32c18a630d5c68.js"
+  "/precache-manifest.4cad0a81ad95bf74fd2a1fd6adfeb6b5.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "googleplaces"});
