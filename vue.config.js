@@ -1,7 +1,7 @@
 
 module.exports = {
   devServer: {
-    proxy: 'https://mgoogleplace.herokuapp.com',
+    proxy: 'https://maps.googleapis.com/',
     ws: true,
     changeOrigin: true
   }
