@@ -125,8 +125,8 @@ export default {
           console.log(err);
         });
     },
-    async ProcurarLocal() {
-      await axios
+    ProcurarLocal() {
+       axios
         .get(
           "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
             this.lat +
