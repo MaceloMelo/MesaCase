@@ -17,6 +17,8 @@
                   >Limpar</b-button>
                 <b-button type="" @click.prevent="ProcurarLocal" variant="success"
                   >Buscar</b-button>
+                <b-button type="" @click.prevent="ProcurarLocal2" variant="success"
+                  >Buscar2</b-button>
               </b-input-group-append>
             </b-input-group>
             <div class=" mt-3">
@@ -123,10 +125,23 @@ export default {
         })
       });
     },
+   PegarLocalizacao2() {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.lat = position.coords.latitude;
+        this.lng = position.coords.longitude;
+        axios.get("https://mgoogleplace.herokuapp.com/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
+          this.endercoUsuario = res.data.results
+          let roots = this.endercoUsuario.map((e)=>{
+           return e.formatted_address
+         });
+         this.endercoUsuario = roots.slice(0,1).toString()
+        })
+      });
+    },
     async ProcurarLocal() {
       await axios
         .get(
-          "http://localhost:8080/maps/api/place/nearbysearch/json?location=" +
+          "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
             this.lat +
             "," +
             this.lng +
