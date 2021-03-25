@@ -1,6 +1,6 @@
 
 module.exports = {
   devServer: {
-    proxy: 'https://maps.googleapis.com'
+    proxy: 'http://localhost:4000'
   }
 }

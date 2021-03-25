@@ -128,7 +128,7 @@ export default {
 async  ProcurarLocal() {
     await axios
         .get(
-          "http://localhost:4000/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
+          "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
             this.lat +
             "," +
             this.lng +
