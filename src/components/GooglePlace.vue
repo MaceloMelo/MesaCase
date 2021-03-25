@@ -114,7 +114,7 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        axios.get("http://localhost:8080/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
+        axios.get("https://mgoogleplace.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
           this.endercoUsuario = res.data.results
           let roots = this.endercoUsuario.map((e)=>{
            return e.formatted_address
