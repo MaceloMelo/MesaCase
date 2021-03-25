@@ -9,12 +9,23 @@
               class="mt-4"
               @submit="onSubmit"
               @reset="onReset"
-              v-if="show"
-            >
+              v-if="show">
               <b-form-group
                 id="input-group-1"
+                label="Nome:"
+                label-for="input-1">
+                <b-form-input
+                  id="input-1"
+                  v-model="form.name"
+                  type="text"
+                  placeholder="Nome"
+                  required
+                ></b-form-input>
+              </b-form-group>
+              <b-form-group
+                id="input-group-2"
                 label="Endereço de Email:"
-                label-for="input-1"
+                label-for="input-2"
               >
                 <b-form-input
                   id="input-2"
@@ -25,9 +36,9 @@
                 ></b-form-input>
               </b-form-group>
               <b-form-group
-                id="input-group-2"
+                id="input-group-3"
                 label="Senha:"
-                label-for="input-2"
+                label-for="input-3"
                 autofocus="true"
               >
                 <b-form-input
@@ -38,23 +49,12 @@
                   required
                 ></b-form-input>
               </b-form-group>
-              <b-form-group
-                id="input-group-3"
-                label=""
-                label-for="input-2"
-                autofocus="true"
-              >
-                <b-form-input
-                  id="input-4"
-                  type="password"
-                  v-model="form.password2"
-                  placeholder="Digite a senha novamente"
-                  required
-                ></b-form-input>
-              </b-form-group>
               <div class="mb-4">
                 <div>
                   <b-alert v-model="alertaErro" variant="danger" dismissible>{{
+                    msg
+                  }}</b-alert>
+                  <b-alert v-model="alertaConfir" variant="success" dismissible>{{
                     msg
                   }}</b-alert>
                 </div>
@@ -80,12 +80,13 @@ export default {
   data() {
     return {
       form: {
+        name: "",
         email: "",
         password: "",
       },
       msg: "",
       alertaErro: false,
-      password2: "",
+      alertaConfir: false,
       show: true,
     };
   },
@@ -95,9 +96,14 @@ export default {
     async onSubmit(event) {
       event.preventDefault(),
         await this.$store.dispatch("Cadastrar", this.form);
-      if (this.$store.getters.statusCode == 200 && this.$store.state.token) {
+      if (this.$store.getters.statusCode == 200 && this.$store.getters.token) {
+        this.msg = "Tudo OK!.";
+        this.alertaConfir = true;
         this.$router.push({ name: "dashboard" });
-      } else {
+          } else if(navigator.online != true) {
+          this.msg = "Opps! você estar sem conexão!";
+          this.alertaErro = true;
+      }else{
         this.msg = "Desculpe, não foi possivel efetuar cadastro.";
         this.alertaErro = true;
       }
@@ -105,9 +111,9 @@ export default {
     onReset(event) {
       event.preventDefault();
       // Reset our form values
+      this.form.name = "";
       this.form.email = "";
       this.form.password = "";
-      this.form.password2 = "";
       // Trick to reset/clear native browser form validation state
       this.show = false;
       this.$nextTick(() => {

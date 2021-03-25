@@ -42,13 +42,22 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../components/Cadastro.vue"),
   },
   {
-    path: "/userLocation",
-    name: "userLocation",
+    path: "/GooglePlace",
+    name: "GooglePlace",
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
     component: () =>
-      import(/* webpackChunkName: "about" */ "../components/UserLocation.vue"),
+      import(/* webpackChunkName: "about" */ "../components/GooglePlace.vue"),
+  },
+  {
+    path: "/perfil",
+    name: "perfil",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../components/Perfil.vue"),
   },
 ];
 
@@ -62,8 +71,12 @@ router.beforeEach((to, from, next) => {
   document.title = to.name;
   if (to.name == "dashboard" && !localStorage.getItem("tokenLocal")) {
     next({ name: "login" });
-  } else {
-    next();
+  } else if(to.name == "perfil" && !localStorage.getItem("tokenLocal")) {
+    next({ name: "login" });
+  }else if(to.name == "cadastro" && localStorage.getItem("tokenLocal")){
+    next({ name: "dashboard" });
+  }else{
+    next()
   }
 });
 

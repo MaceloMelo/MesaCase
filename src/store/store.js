@@ -5,18 +5,15 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    usuarios: {},
     token: "",
     statusCode: "",
     usuario: {
+      name: "",
       email: "",
       password: "",
     },
   },
   getters: {
-    usuarios(state) {
-      return state.usuarios;
-    },
     usuario(state) {
       return state.usuario;
     },
@@ -28,9 +25,6 @@ export default new Vuex.Store({
     },
   },
   mutations: {
-    ListUsuarios(state, usuarios) {
-      state.usuarios = usuarios;
-    },
     SetUsuario(state, usuario) {
       state.usuario = usuario;
     },
@@ -42,17 +36,6 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async ListarUsuarios({ commit }) {
-      await Vue.prototype.$http
-        .get("users.json")
-        .then((response) => {
-          const data = response.data;
-          commit("ListUsuarios", data.usuarios);
-        })
-        .catch((error) => {
-          console.log("Erro ao listar" + error);
-        });
-    },
     async Logar({ commit }, payload) {
       await Vue.prototype.$http
         .post("login", payload)
@@ -74,11 +57,28 @@ export default new Vuex.Store({
           commit("SetToken", res.data.token);
           localStorage.setItem("tokenLocal", JSON.stringify(res.data.token));
           commit("SetUsuario", payload);
+          localStorage.setItem("emailLocalCadastro", JSON.stringify(payload.email));
+          localStorage.setItem("nomeLocalCadastro", JSON.stringify(payload.name));
           commit("StatusCode", res.status);
         })
         .catch((error) => {
           console.log("Erro ao Cadastrar" + error);
         });
     },
+    async Atualizar({ commit }, payload) {
+      await Vue.prototype.$http
+        .put("user/2", payload)
+        .then((res) => {
+          commit("SetToken", res.data.token);
+          commit("SetUsuario", payload);
+          localStorage.setItem("emailLocal", JSON.stringify(payload.email));
+          localStorage.setItem("nomeLocal", JSON.stringify(payload.name));
+          commit("StatusCode", res.status);
+        })
+        .catch((error) => {
+          console.log("Erro ao Cadastrar" + error);
+        });
+    },
+    
   },
 });

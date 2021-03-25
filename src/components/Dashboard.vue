@@ -1,15 +1,15 @@
 <template>
   <div id="dashboard">
     <app-navbar></app-navbar>
-    <UserLocation></UserLocation>
+    <GooglePlace></GooglePlace>
   </div>
 </template>
 <script>
-import UserLocation from "./UserLocation";
+import GooglePlace from "./GooglePlace";
 export default {
   name: "Dashboard",
   components: {
-    UserLocation,
+    GooglePlace,
   },
 };
 </script>

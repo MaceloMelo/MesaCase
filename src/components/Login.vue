@@ -40,8 +40,11 @@
               </b-form-group>
               <div class="mb-3 mt-2">
                 <b-alert v-model="alertaErro" variant="danger" dismissible>{{
-                  msg
-                }}</b-alert>
+                    msg
+                  }}</b-alert>
+                  <b-alert v-model="alertaConfir" variant="success" dismissible>{{
+                    msg
+                  }}</b-alert>
                 <router-link to="/cadastro">Cadastre-se</router-link>
               </div>
               <b-button class="mr-5" type="submit" variant="primary"
@@ -70,6 +73,7 @@ export default {
       },
       msg: "",
       alertaErro: false,
+      alertaConfir: false,
       show: true,
     };
   },
@@ -79,8 +83,14 @@ export default {
     async onSubmit() {
       await this.$store.dispatch("Logar", this.form);
       if (this.$store.getters.statusCode == 200 && this.$store.state.token) {
+        this.msg = "Tudo OK!";
+        this.alertaConfir = true;
         this.$router.push({ name: "dashboard" });
-      } else {
+      } else if(navigator.online != true) {
+       this.msg = "Opps! você estar sem conexão!";
+          this.alertaErro = true;
+        
+      }else{
         this.msg = "Desculpe, verifique suas credenciais";
         this.alertaErro = true;
       }
@@ -95,9 +105,6 @@ export default {
       this.$nextTick(() => {
         this.show = true;
       });
-    },
-    ListagemUsuarios() {
-      this.ListarUsuarios();
     },
   },
 };

@@ -1,11 +1,11 @@
 <template>
-  <div class="UserLocation">
+  <div class="GooglePlace">
     <div>
       <b-card class="text-center">
         <div class="text-light">
           <b-form>
-            <b-input-group prepend="Endereço" class="mt-3">
-              <b-form-input v-model="Localizacao"></b-form-input>
+            <b-input-group prepend="Seu local" class="mt-3">
+              <b-form-input v-model="endercoUsuario"></b-form-input>
               <b-input-group-append>
                 <b-button
                   @click.prevent="PegarLocalizacao"
@@ -13,12 +13,13 @@
                   variant="info"
                   ><b-icon icon="geo-alt"></b-icon
                 ></b-button>
-                <b-button type="" @click.prevent="ProcurarLocal" variant="info"
-                  >Buscar</b-button
-                >
+                <b-button type="" @click.prevent="LimparLocal" variant=""
+                  >Limpar</b-button>
+                <b-button type="" @click.prevent="ProcurarLocal" variant="success"
+                  >Buscar</b-button>
               </b-input-group-append>
             </b-input-group>
-            <div class="mt-3">
+            <div class=" mt-3">
               <b-form-select
                 v-model="SeletorLocal"
                 :options="optionsLocal"
@@ -32,10 +33,13 @@
             </div>
           </b-form>
         </div>
-        <div class="mt-3 d-inline-flex">
-          <div style="height: 600px; overflow: auto">
-            <div class="col-12">
-              <ul class="list-unstyled" v-for="place in places" :key="place.id">
+        <div class="div-geral mt-3">
+            <div class=" list-lugares">
+              <b-list-group>
+                <b-list-group-item>LISTA DE LUGARES</b-list-group-item>
+              </b-list-group>
+            <div class="col-12 mt-5">
+              <ul class="list-unstyled" v-for="(place,index) in places" :key="index">
                 <b-media tag="li">
                   <template #aside>
                     <b-img
@@ -55,7 +59,7 @@
           <div class="col-8">
             <GmapMap
               :center="{ lat: this.lat, lng: this.lng }"
-              :zoom="14"
+              :zoom="13"
               map-type-id="terrain"
               style="width: 950px; height: 600px">
               <GmapMarker
@@ -63,7 +67,7 @@
                 v-for="(markers, index) in markers"
                 :position="markers.position"
                 :clickable="true"
-                :draggable="true"
+                :draggable="false"
                 @click="center = markers.position"
               />
             </GmapMap>
@@ -78,38 +82,45 @@
 // @ is an alias to /src
 import axios from "axios";
 export default {
-  name: "UserLocation",
+  name: "GooglePlace",
   components: {},
   data() {
     return {
       SeletorDistancia: null,
       SeletorLocal: null,
-      optionsLocal: [{ value: "restaurant", text: "Restaurantes" }],
+      optionsLocal: [
+        { value: "restaurant", text: "Restaurantes" },
+        { value: "church", text: "Igreja" },
+        { value: "hospital", text: "Hospital" },
+        { value: "store", text: "Lojas" },
+        { value: "school", text: "Escolas" },],
       optionsDistancia: [
         { value: "5000", text: "5 KM" },
         { value: "10000", text: "10 KM" },
         { value: "15000", text: "15 KM" },
-        { value: "20000", text: "20 KM" },
-      ],
+        { value: "20000", text: "20 KM" },],
       lat: 0,
       lng: 0,
       places: [],
       markers: [],
       latResultado: {},
       lngResultado: {},
+      endercoUsuario:'',
       key: "AIzaSyCWp0kqYKOImm0UsHz17vaRq4kHOwsnqI4",
     };
   },
-  computed: {
-    Localizacao() {
-      return `${this.lat},${this.lng}`;
-    },
-  },
   methods: {
-    PegarLocalizacao() {
+   PegarLocalizacao() {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
+        axios.get("http://localhost:8080/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
+          this.endercoUsuario = res.data.results
+          let roots = this.endercoUsuario.map((e)=>{
+           return e.formatted_address
+         });
+         this.endercoUsuario = roots.slice(0,1).toString()
+        })
       });
     },
     async ProcurarLocal() {
@@ -128,7 +139,6 @@ export default {
         )
         .then((res) => {
           this.places = res.data.results;
-          console.log(this.places);
           this.places.forEach((place) => {
             this.latResultado = place.geometry.location.lat;
             this.lngResultado = place.geometry.location.lng;
@@ -136,12 +146,42 @@ export default {
               position: { lat: this.latResultado, lng: this.lngResultado },
             };
             this.markers.push(resultadoLocais);
+            
           });
         })
         .catch((err) => {
           console.log(err);
         });
     },
+    LimparLocal(){
+      this.SeletorLocal = '',
+      this.SeletorDistancia = ''
+      this.markers = [];
+      this.places = [];
+    },
+
   },
 };
 </script>
+<style scoped>
+.div-geral{
+  display: inline-flex;
+}
+
+@media (max-width:769px) {
+  .vue-map-container{
+    width: 325px!important;
+    margin-left: -8%;
+    margin-top: 15%;
+  }
+  .div-geral{
+  display: block;
+  }
+}
+@media (min-width:1024px) {
+.list-lugares{
+      width: 500px;
+
+}
+}
+</style>
