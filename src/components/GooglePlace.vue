@@ -114,7 +114,7 @@ export default {
       navigator.geolocation.getCurrentPosition((position) => {
         this.lat = position.coords.latitude;
         this.lng = position.coords.longitude;
-        axios.get("https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
+        axios.get("https://mgoogleplace.herokuapp.com/maps/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
           this.endercoUsuario = res.data.results
           let roots = this.endercoUsuario.map((e)=>{
            return e.formatted_address
@@ -126,7 +126,7 @@ export default {
     async ProcurarLocal() {
       await axios
         .get(
-          "https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
+          "https://mgoogleplace.herokuapp.com/maps/api/place/nearbysearch/json?location=" +
             this.lat +
             "," +
             this.lng +
