@@ -116,7 +116,8 @@ export default {
         this.lng = position.coords.longitude;
       axios.get("https://mgoogleplace.herokuapp.com/api/geocode/json?latlng="+this.lat+","+this.lng+"&key="+this.key+"").then(res =>{
           this.endercoUsuario = res.data.results
-          let roots = this.endercoUsuario.map((e)=>{
+          let roots = this.endercoUsuario
+          roots = roots.map((e)=>{
            return e.formatted_address
          });
          this.endercoUsuario = roots.slice(0,1).toString()
