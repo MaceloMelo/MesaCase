@@ -28,7 +28,7 @@
         <b-list-group-item><b-icon icon="check-circle-fill" variant="success"></b-icon>TRATAMENTOS DE ERROS</b-list-group-item>
           <b-list-group-item><b-icon icon="check-circle-fill" variant="success"></b-icon>DOCKER E DOCKER COMPOSE</b-list-group-item>
         <b-list-group-item><b-icon icon="check-circle-fill" variant="success"></b-icon>REPOSITÓRIO GITHUB</b-list-group-item>
-        <b-list-group-item><b-icon icon="check-circle-fill" variant="success"></b-icon>DEPOLY HEROKU(CORS ERROR)</b-list-group-item>
+        <b-list-group-item><b-icon icon="check-circle-fill" variant="warning"></b-icon>DEPOLY HEROKU(CORS ERROR)</b-list-group-item>
         <b-list-group-item><b-icon icon="x-circle-fill" variant="danger"></b-icon>SALVAR EM FAVORITOS</b-list-group-item>
         <b-list-group-item><b-icon icon="x-circle-fill" variant="danger"></b-icon>AVALIAR COM RATING E COMENTARIOS
         </b-list-group-item>
