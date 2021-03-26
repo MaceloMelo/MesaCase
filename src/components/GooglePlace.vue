@@ -131,7 +131,7 @@ export default {
 async  ProcurarLocal() {
     await axios
         .get(
-          "http://localhost:8080/api/place/nearbysearch/json?location=" +
+          "https://mgoogleplace.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" +
             this.lat +
             "," +
             this.lng +
