@@ -1,8 +1,6 @@
 
 # GooglePlace
 =======
-# googleplaces
-
 ## Project setup
 ```
 npm install
