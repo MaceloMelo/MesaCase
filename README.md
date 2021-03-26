@@ -19,7 +19,7 @@ npm run build
 
 ### Visualização
 ```
-Disponivel em :https://mgoogleplace.herokuapp.com
+https://mgoogleplace.herokuapp.com
 Obs: habilitar os CORS
 ```
 
