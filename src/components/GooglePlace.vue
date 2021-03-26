@@ -144,6 +144,7 @@ async  ProcurarLocal() {
         )
         .then((res) => {
           this.places = res.data.results;
+          console.log(res.data.results);
           if(this.places){
             this.places.forEach((place) => {
             this.latResultado = place.geometry.location.lat;
