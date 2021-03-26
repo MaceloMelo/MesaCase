@@ -144,15 +144,16 @@ async  ProcurarLocal() {
         )
         .then((res) => {
           this.places = res.data.results;
-          this.places.forEach((place) => {
+          if(this.places){
+            this.places.forEach((place) => {
             this.latResultado = place.geometry.location.lat;
             this.lngResultado = place.geometry.location.lng;
             const resultadoLocais = {
-              position: { lat: this.latResultado, lng: this.lngResultado },
-            };
+              position: { lat: this.latResultado, lng: this.lngResultado },};
             this.markers.push(resultadoLocais);
-            
-          });
+            });
+          }
+         
         })
         .catch((err) => {
           console.log(err);
