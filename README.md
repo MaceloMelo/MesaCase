@@ -2,9 +2,6 @@
 # GooglePlace
 
 =======
-Disponivel em :  https://mgoogleplace.herokuapp.com/
-Obs: habilitar os CORS
-=======
 ## Project setup
 ```
 npm install
@@ -20,9 +17,10 @@ npm run serve
 npm run build
 ```
 
-### Lints and fixes files
+### Visualização
 ```
-npm run lint
+Disponivel em :https://mgoogleplace.herokuapp.com
+Obs: habilitar os CORS
 ```
 
 ### Customize configuration
