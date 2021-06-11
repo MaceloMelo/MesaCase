@@ -5,7 +5,7 @@
           <router-link to="/login">Login</router-link> 
     </div>
     <img alt="Vue logo" src="../assets/logo.png" />
-    <h1>Case Atividades</h1>
+    <h1>Case Atividades 222</h1>
       <b-container >
         <div class="atividades">
         <b-list-group class="">
